@@ -1,0 +1,40 @@
+.main-frame {
+  display: flex;
+  flex-direction: row;
+  align-items: first baseline;
+  justify-content: space-around;
+}
+
+.gem-option {
+}
+
+.gem-option {
+  display: flex;
+  justify-content: center;
+}
+
+.gem-list {
+  width: 140%;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.gem-list img {
+  border-radius: 3px;
+  margin-right: 10px;
+  width: 5%;
+}
+
+.gem-list span:nth-child(1) {
+  width: 30%;
+}
+.gem-list span:nth-child(2) {
+  width: 40%;
+}
+.gem-list span:nth-child(3) {
+  width: 35%;
+}
