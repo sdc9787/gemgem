@@ -5,12 +5,13 @@ function App() {
   let classSkill = require("./classSkill.json"); //classSkill종합파일
   let classSkillList = Object.keys(classSkill); //class목록 추출
 
-  let [checked, setChecked] = useState([]);
-  let [gemLevel, setGemLevel] = useState("7레벨");
-  let [gemDamCol, setGemDamCol] = useState("멸화");
-  let [gemListAll, setGemListAll] = useState([]);
+  let [checked, setChecked] = useState([]); //class 체크 저장
+  let [gemLevel, setGemLevel] = useState("7레벨"); //보석 레벨 저장
+  let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
+  let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
   const handleCheck = (e) => {
+    //체크할때마다 실시칸 배열저장
     e.stopPropagation();
     let updatedList = [...checked];
     if (e.target.checked) {
@@ -25,7 +26,9 @@ function App() {
   function api() {
     setGemListAll(() => []);
     checked.map((b) => {
+      //체크한 직업만큼 반복
       classSkill[b].map((a, i) => {
+        //체크한 직업의 스킬만큼 반복
         var XMLHttpRequest = require("xhr2");
         var xhr2 = new XMLHttpRequest();
         xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
@@ -76,17 +79,17 @@ function App() {
         );
 
         xhr2.onload = () => {
-          let classGem = JSON.parse(xhr2.response);
+          let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
 
           if (xhr2.status == 200) {
             if (classGem.TotalCount !== 0) {
-              let test = {};
-              test.skillValue = a.Value;
-              test.price = classGem.Items[0].AuctionInfo.BuyPrice;
-              test.skillName = classGem.Items[0].Options[0].OptionName;
-              test.className = classGem.Items[0].Options[0].ClassName;
-              test.Icon = a.Icon;
-              setGemListAll((gemListAll) => [...gemListAll, test]);
+              let test = {}; //오브젝트 생성
+              test.skillValue = a.Value; //스킬값 저장
+              test.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
+              test.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
+              test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+              test.Icon = a.Icon; //아이콘 경로 저장
+              setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
             }
           }
         };
@@ -94,9 +97,9 @@ function App() {
     });
   }
 
-  // setGemListAll((gemListAll) => [...gemListAll]);
   useEffect(() => {
     gemListAll.sort((a, b) => {
+      //가격내림차순으로 정렬
       return b.price - a.price;
     });
   }, [gemListAll]);
