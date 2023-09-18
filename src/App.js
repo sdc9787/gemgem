@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
   let [gemLevel, setGemLevel] = useState("7레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
+
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const handleCheck = (e) => {
     //체크할때마다 실시칸 배열저장
@@ -100,8 +102,11 @@ function App() {
   useEffect(() => {
     gemListAll.sort((a, b) => {
       //가격내림차순으로 정렬
-      return b.price - a.price;
+      if (a.hasOwnProperty("price")) {
+        return b.price - a.price;
+      }
     });
+    forceUpdate();
   }, [gemListAll]);
   return (
     <div className="main-frame">
@@ -121,8 +126,7 @@ function App() {
             onChange={(e) => {
               setGemLevel(e.target.value);
               console.log(e.target.value);
-            }}
-          >
+            }}>
             <option value="7레벨">7레벨</option>
             <option value="8레벨">8레벨</option>
             <option value="9레벨">9레벨</option>
@@ -161,8 +165,7 @@ function App() {
         <button
           onClick={() => {
             api();
-          }}
-        >
+          }}>
           검색
         </button>
       </div>
