@@ -1,16 +1,37 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "./App.css";
 
 function App() {
   let classSkill = require("./classSkill.json"); //classSkill종합파일
   let classSkillList = Object.keys(classSkill); //class목록 추출
+  let classDivision = ["아르카나", "배틀마스터", "블레이드", "호크아이", "도화가"];
+  let classDivision2 = ["전사", "마법사", "무도가", "암살자", "헌터", "스페셜리스트"];
+  let newclassDivision = {}; //class 클래스별 정리
+  let test = [];
 
+  let [apiKey, setapiKey] = useState(() => JSON.parse(window.localStorage.getItem("apiKey")) || "");
   let [checked, setChecked] = useState([]); //class 체크 저장
   let [gemLevel, setGemLevel] = useState("7레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
+  let count123 = 0;
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+
+  /*클래스 분류*/
+  let count1 = 0;
+  let count2 = 0;
+  classSkillList.map((a, i) => {
+    classDivision.map((b, j) => {
+      if (a == b) {
+        newclassDivision[classDivision2[count2++]] = test;
+        count1 = 0;
+        test = [];
+      }
+    });
+    test[count1++] = a;
+  });
+  newclassDivision[classDivision2[count2]] = test;
 
   const handleCheck = (e) => {
     //체크할때마다 실시칸 배열저장
@@ -35,10 +56,7 @@ function App() {
         var xhr2 = new XMLHttpRequest();
         xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
         xhr2.setRequestHeader("accept", "application/json");
-        xhr2.setRequestHeader(
-          "authorization",
-          "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAyOTk4OTgifQ.Q6OfRzEetB5YOcquTLrkkPI6sOOxe6OACPVE57i3aAu3QZ9sLI0VNat9EBydNZYAYxgP88Xc0Ecv7992FFWrnR1WJI6SfE9cqtOKC7A7a6-w7Eu4s7zQ2qZ2YA3LJQ36o6J4K30nq7xZwtet5z2pQ60In8IfkQxFTgjxVq7UoJhXtGAfKofaPQOLItDsMbGY_GrUccS6TxmQGXgctyJ2Zl-zLwOMpbFGYaqSsCuM8xp2oOOwRvn3VQYSrUL_Omdv8Dk3YY7yc4fDlh-6ApTL-bX_Br_vzbvd9CiEM2DOkjdFVGd4UT6mZ20RNgXHh5Hhet-_zlWZoo4d4mJPK4W8lg"
-        );
+        xhr2.setRequestHeader("authorization", `bearer ${apiKey}`);
         xhr2.setRequestHeader("content-Type", "application/json");
         xhr2.onreadystatechange = () => {
           // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
@@ -108,80 +126,110 @@ function App() {
     });
     forceUpdate();
   }, [gemListAll]);
+  useEffect(() => {
+    window.localStorage.setItem("apiKey", JSON.stringify(apiKey));
+  }, [apiKey]);
   return (
-    <div className="main-frame">
-      <div className="gem-option">
-        <div className="class-choice">
-          {classSkillList.map((a, i) => {
-            return (
-              <div key={i}>
-                <input value={a} id={a} type="checkbox" onChange={handleCheck} />
-                <label htmlFor={a}>{a}</label>
+    <>
+      <div className="navbar"></div>
+      <div className="main-frame">
+        <div className="gem-option">
+          <div className="api-key">
+            <span>API 키</span>
+            <input
+              type="text"
+              onChange={(e) => {
+                setapiKey(e.target.value);
+              }}
+              value={apiKey}
+              placeholder="API 키"
+            />
+          </div>
+          <div className="class-choice">
+            {Object.keys(newclassDivision).map((a, i) => {
+              return (
+                <div className="class-division" key={i}>
+                  <span>{a}</span>
+                  {newclassDivision[a].map((b, j) => {
+                    return (
+                      <div key={count123++}>
+                        <input value={b} id={b} type="checkbox" onChange={handleCheck} />
+                        <label htmlFor={b}>{b}</label>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+          <div className="gem-choice-damage-cooldown">
+            <div className="gem-choice">
+              <span>보석 레벨</span>
+              <select
+                onChange={(e) => {
+                  setGemLevel(e.target.value);
+                  console.log(e.target.value);
+                }}
+              >
+                <option value="7레벨">7레벨</option>
+                <option value="8레벨">8레벨</option>
+                <option value="9레벨">9레벨</option>
+                <option value="10레벨">10레벨</option>
+              </select>
+            </div>
+            <div className="gem-damage-cooldown">
+              <span>보석 종류</span>
+              <div className="gem-damage">
+                <input
+                  name="gem"
+                  value="멸화"
+                  id="damage"
+                  type="radio"
+                  defaultChecked
+                  onChange={(e) => {
+                    setGemDamCol(e.target.value);
+                    console.log(e.target.value);
+                  }}
+                />
+                <label htmlFor="damage">멸화</label>
               </div>
-            );
+              <div className="gem-cooldown">
+                <input
+                  name="gem"
+                  value="홍염"
+                  id="cooldown"
+                  type="radio"
+                  onChange={(e) => {
+                    setGemDamCol(e.target.value);
+                    console.log(e.target.value);
+                  }}
+                />
+                <label htmlFor="cooldown">홍염</label>
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              api();
+            }}
+          >
+            검색
+          </button>
+        </div>
+        <div className="gem-list-frame">
+          {gemListAll.map((a, i) => {
+            return a.price != null ? (
+              <div className="gem-list" key={i}>
+                <img src={a.Icon} alt="스킬아이콘" />
+                <span className="skill-name">{a.skillName}</span>
+                <span className="price">{a.price}</span>
+                <span className="className">{a.className}</span>
+              </div>
+            ) : null;
           })}
         </div>
-        <div className="gem-choice">
-          <select
-            onChange={(e) => {
-              setGemLevel(e.target.value);
-              console.log(e.target.value);
-            }}>
-            <option value="7레벨">7레벨</option>
-            <option value="8레벨">8레벨</option>
-            <option value="9레벨">9레벨</option>
-            <option value="10레벨">10레벨</option>
-          </select>
-        </div>
-        <div className="gem-damage-coldown">
-          <div className="gem-damage">
-            <input
-              name="gem"
-              value="멸화"
-              id="damage"
-              type="radio"
-              defaultChecked
-              onChange={(e) => {
-                setGemDamCol(e.target.value);
-                console.log(e.target.value);
-              }}
-            />
-            <label htmlFor="damage">멸화</label>
-          </div>
-          <div className="gem-cooldown">
-            <input
-              name="gem"
-              value="홍염"
-              id="cooldown"
-              type="radio"
-              onChange={(e) => {
-                setGemDamCol(e.target.value);
-                console.log(e.target.value);
-              }}
-            />
-            <label htmlFor="cooldown">홍염</label>
-          </div>
-        </div>
-        <button
-          onClick={() => {
-            api();
-          }}>
-          검색
-        </button>
       </div>
-      <div className="gem-list-frame">
-        {gemListAll.map((a, i) => {
-          return a.price != null ? (
-            <div className="gem-list" key={i}>
-              <img src={a.Icon} alt="스킬아이콘" />
-              <span className="skill-name">{a.skillName}</span>
-              <span className="price">{a.price}</span>
-              <span className="className">{a.className}</span>
-            </div>
-          ) : null;
-        })}
-      </div>
-    </div>
+    </>
   );
 }
 

@@ -1,16 +1,34 @@
+html {
+  background-color: #303030;
+  color: white;
+}
 .main-frame {
   display: flex;
   flex-direction: row;
   align-items: first baseline;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.navbar {
+  display: block;
+  width: 100%;
+  height: 60px;
+  background-color: #1288ff;
 }
 
 .gem-option {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .gem-option {
   display: flex;
   justify-content: center;
+}
+
+.gem-list-frame {
+  margin-right: 100px;
 }
 
 .gem-list {
@@ -37,4 +55,93 @@
 }
 .gem-list span:nth-child(3) {
   width: 35%;
+}
+
+.class-choice {
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  border: 2px solid gray;
+  border-radius: 20px;
+  background-color: #424242;
+  text-align: left;
+}
+
+.class-choice span {
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.class-division {
+  margin: 10px;
+}
+
+.api-key span {
+  margin-right: 10px;
+}
+
+.api-key input {
+  background-color: #303030;
+  border: 0px;
+  border-bottom: 1px solid gray;
+  color: white;
+}
+
+.gem-choice-damage-cooldown {
+  margin: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  white-space: nowrap;
+  border: 2px solid gray;
+  border-radius: 15px;
+  background-color: #424242;
+  text-align: left;
+  padding: 15px;
+}
+
+.gem-choice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gem-choice span {
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.gem-choice select {
+  background-color: #424242;
+  padding: 5px;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.gem-damage-cooldown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gem-damage-cooldown span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.gem-option button {
+  width: 60px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: #1288ff;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  margin: auto;
 }
