@@ -11,7 +11,7 @@ function App() {
 
   let [apiKey, setapiKey] = useState(() => JSON.parse(window.localStorage.getItem("apiKey")) || "");
   let [checked, setChecked] = useState([]); //class 체크 저장
-  let [gemLevel, setGemLevel] = useState("7레벨"); //보석 레벨 저장
+  let [gemLevel, setGemLevel] = useState("5레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
@@ -91,7 +91,7 @@ function App() {
             CategoryCode: 210000,
             CharacterClass: b,
             ItemTier: 3,
-            ItemGrade: gemLevel !== "10레벨" ? "전설" : "유물",
+            ItemGrade: null,
             ItemName: `${gemLevel} ${gemDamCol}`,
             PageNo: 0,
             SortCondition: "ASC",
@@ -126,6 +126,7 @@ function App() {
     });
     forceUpdate();
   }, [gemListAll]);
+
   useEffect(() => {
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey));
   }, [apiKey]);
@@ -135,7 +136,7 @@ function App() {
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-key">
-            <span>API 키</span>
+            <span style={{ fontWeight: "600" }}>API 키</span>
             <input
               type="text"
               onChange={(e) => {
@@ -149,10 +150,10 @@ function App() {
             {Object.keys(newclassDivision).map((a, i) => {
               return (
                 <div className="class-division" key={i}>
-                  <span>{a}</span>
+                  <span className="class-division-classname">{a}</span>
                   {newclassDivision[a].map((b, j) => {
                     return (
-                      <div key={count123++}>
+                      <div className="class-division-checkbox" key={count123++}>
                         <input value={b} id={b} type="checkbox" onChange={handleCheck} />
                         <label htmlFor={b}>{b}</label>
                       </div>
@@ -169,8 +170,9 @@ function App() {
                 onChange={(e) => {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
-                }}
-              >
+                }}>
+                <option value="5레벨">5레벨</option>
+                <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
                 <option value="8레벨">8레벨</option>
                 <option value="9레벨">9레벨</option>
@@ -211,8 +213,7 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}
-          >
+            }}>
             검색
           </button>
         </div>
@@ -222,7 +223,7 @@ function App() {
               <div className="gem-list" key={i}>
                 <img src={a.Icon} alt="스킬아이콘" />
                 <span className="skill-name">{a.skillName}</span>
-                <span className="price">{a.price}</span>
+                <span className="price">{a.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                 <span className="className">{a.className}</span>
               </div>
             ) : null;
