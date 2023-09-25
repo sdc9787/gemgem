@@ -8,6 +8,8 @@ function App() {
   let classDivision2 = ["전사", "마법사", "무도가", "암살자", "헌터", "스페셜리스트"];
   let newclassDivision = {}; //class 클래스별 정리
   let test = [];
+  let [classSkillCount, setClassSkillCount] = useState(0); //전체스킬개수(api검색수)
+  let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
   let [apiKey, setapiKey] = useState(() => JSON.parse(window.localStorage.getItem("apiKey")) || "");
   let [checked, setChecked] = useState([]); //class 체크 저장
@@ -47,6 +49,7 @@ function App() {
   };
 
   function api() {
+    let count = 0;
     setGemListAll(() => []);
     checked.map((b) => {
       //체크한 직업만큼 반복
@@ -110,12 +113,17 @@ function App() {
               test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
               test.Icon = a.Icon; //아이콘 경로 저장
               setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
+              setNowClassSkillCount(++count);
+              console.log(test);
             }
           }
         };
       });
     });
   }
+  useEffect(() => {
+    forceUpdate();
+  }, [nowClassSkillCount]);
 
   useEffect(() => {
     gemListAll.sort((a, b) => {
@@ -130,21 +138,43 @@ function App() {
   useEffect(() => {
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey));
   }, [apiKey]);
+
+  useEffect(() => {
+    setClassSkillCount(0);
+    let classCount = 0;
+    checked.map((a) => {
+      //스킬개수 계산
+      classSkill[a].map(() => {
+        classCount++;
+      });
+    });
+    setClassSkillCount(classCount);
+  }, [checked]);
+
+  useEffect(() => {
+    console.log(classSkillCount);
+  }, [classSkillCount]);
   return (
     <>
       <div className="navbar"></div>
       <div className="main-frame">
         <div className="gem-option">
-          <div className="api-key">
-            <span style={{ fontWeight: "600" }}>API 키</span>
-            <input
-              type="text"
-              onChange={(e) => {
-                setapiKey(e.target.value);
-              }}
-              value={apiKey}
-              placeholder="API 키"
-            />
+          <div className="api-input-frame">
+            <div className="api-key">
+              <span style={{ fontWeight: "600" }}>API 키</span>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setapiKey(e.target.value);
+                }}
+                value={apiKey}
+                placeholder="API 키"
+              />
+            </div>
+            <div>
+              <span>검색수</span>
+              <span>{`${nowClassSkillCount}/${classSkillCount}`}</span>
+            </div>
           </div>
           <div className="class-choice">
             {Object.keys(newclassDivision).map((a, i) => {

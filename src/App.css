@@ -28,6 +28,28 @@ html {
   justify-content: center;
 }
 
+.api-input-frame {
+  margin: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  white-space: nowrap;
+  border: 2px solid gray;
+  border-radius: 15px;
+  background-color: #424242;
+  text-align: left;
+  padding: 15px;
+}
+
+.api-input-frame div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.api-input-frame div span:first-child {
+  margin-right: 10px;
+}
+
 .gem-list-frame {
   margin-right: 100px;
 }
@@ -55,16 +77,12 @@ html {
   margin: 10px;
 }
 
-.api-key {
-  margin-bottom: 10px;
-}
-
 .api-key span {
   margin-right: 10px;
 }
 
 .api-key input {
-  background-color: #303030;
+  background-color: #424242;
   border: 0px;
   border-bottom: 1px solid gray;
   color: white;
