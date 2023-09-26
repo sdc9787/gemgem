@@ -134,14 +134,20 @@ html {
 .gem-option button {
   width: 60px;
   height: 40px;
-  border: 1px solid gray;
+  border: 2px solid gray;
   border-radius: 10px;
-  background-color: #1288ff;
+  background-color: #424242;
   color: white;
   font-size: 15px;
   font-weight: 600;
   text-align: center;
   margin: auto;
+  transition: 0.15s all ease-in-out;
+}
+
+.gem-option button:hover {
+  background-color: #303030;
+  cursor: pointer;
 }
 
 .class-division-classname {
