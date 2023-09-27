@@ -57,7 +57,7 @@ function App() {
       //체크한 직업만큼 반복
       classSkill[b].map((a, i) => {
         timeCount++;
-        if (count > 89) {
+        if (timeCount > 90) {
           setTimeout(() => {
             count++;
 
@@ -110,7 +110,6 @@ function App() {
 
             xhr2.onload = () => {
               let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
-
               if (xhr2.status == 200) {
                 if (classGem.TotalCount !== 0) {
                   let test = {}; //오브젝트 생성
@@ -121,7 +120,72 @@ function App() {
                   test.Icon = a.Icon; //아이콘 경로 저장
                   setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                   setNowClassSkillCount(count);
+                  console.log(test);
                 }
+              } else if (xhr2.status == 429) {
+                count--;
+                setTimeout(() => {
+                  count++;
+                  xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
+                  xhr2.setRequestHeader("accept", "application/json");
+                  xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
+                  xhr2.setRequestHeader("content-Type", "application/json");
+                  xhr2.onreadystatechange = () => {
+                    // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
+                    //   console.log("처리중");
+                    // } else if (xhr2.readyState === 4) {
+                    //   console.log("처리완료");
+                    // }
+                  };
+
+                  xhr2.send(
+                    JSON.stringify({
+                      ItemLevelMin: 0,
+                      ItemLevelMax: 0,
+                      ItemGradeQuality: null,
+                      SkillOptions: [
+                        {
+                          FirstOption: a.Value,
+                          SecondOption: null,
+                          MinValue: null,
+                          MaxValue: null,
+                        },
+                      ],
+                      EtcOptions: [
+                        {
+                          FirstOption: null,
+                          SecondOption: null,
+                          MinValue: null,
+                          MaxValue: null,
+                        },
+                      ],
+                      Sort: "BUY_PRICE",
+                      CategoryCode: 210000,
+                      CharacterClass: b,
+                      ItemTier: 3,
+                      ItemGrade: null,
+                      ItemName: `${gemLevel} ${gemDamCol}`,
+                      PageNo: 0,
+                      SortCondition: "ASC",
+                    })
+                  );
+                  xhr2.onload = () => {
+                    let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
+                    if (xhr2.status == 200) {
+                      if (classGem.TotalCount !== 0) {
+                        let test = {}; //오브젝트 생성
+                        test.skillValue = a.Value; //스킬값 저장
+                        test.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
+                        test.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
+                        test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+                        test.Icon = a.Icon; //아이콘 경로 저장
+                        setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
+                        setNowClassSkillCount(count);
+                        console.log(test);
+                      }
+                    }
+                  };
+                }, 70000);
               }
             };
           }, Math.floor(timeCount / 91) * 62000);
@@ -187,7 +251,72 @@ function App() {
                 test.Icon = a.Icon; //아이콘 경로 저장
                 setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                 setNowClassSkillCount(count);
+                console.log(test);
               }
+            } else if (xhr2.status == 429) {
+              count--;
+              setTimeout(() => {
+                count++;
+                xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
+                xhr2.setRequestHeader("accept", "application/json");
+                xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
+                xhr2.setRequestHeader("content-Type", "application/json");
+                xhr2.onreadystatechange = () => {
+                  // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
+                  //   console.log("처리중");
+                  // } else if (xhr2.readyState === 4) {
+                  //   console.log("처리완료");
+                  // }
+                };
+
+                xhr2.send(
+                  JSON.stringify({
+                    ItemLevelMin: 0,
+                    ItemLevelMax: 0,
+                    ItemGradeQuality: null,
+                    SkillOptions: [
+                      {
+                        FirstOption: a.Value,
+                        SecondOption: null,
+                        MinValue: null,
+                        MaxValue: null,
+                      },
+                    ],
+                    EtcOptions: [
+                      {
+                        FirstOption: null,
+                        SecondOption: null,
+                        MinValue: null,
+                        MaxValue: null,
+                      },
+                    ],
+                    Sort: "BUY_PRICE",
+                    CategoryCode: 210000,
+                    CharacterClass: b,
+                    ItemTier: 3,
+                    ItemGrade: null,
+                    ItemName: `${gemLevel} ${gemDamCol}`,
+                    PageNo: 0,
+                    SortCondition: "ASC",
+                  })
+                );
+                xhr2.onload = () => {
+                  let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
+                  if (xhr2.status == 200) {
+                    if (classGem.TotalCount !== 0) {
+                      let test = {}; //오브젝트 생성
+                      test.skillValue = a.Value; //스킬값 저장
+                      test.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
+                      test.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
+                      test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+                      test.Icon = a.Icon; //아이콘 경로 저장
+                      setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
+                      setNowClassSkillCount(count);
+                      console.log(test);
+                    }
+                  }
+                };
+              }, 70000);
             }
           };
         }
