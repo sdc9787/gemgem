@@ -47,7 +47,6 @@ function App() {
       updatedList.splice(checked.indexOf(e.target.value), 1);
     }
     setChecked(updatedList);
-    console.log(updatedList);
   };
 
   function api() {
@@ -122,16 +121,14 @@ function App() {
                   test.Icon = a.Icon; //아이콘 경로 저장
                   setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                   setNowClassSkillCount(count);
-                  console.log(test);
                 }
               }
             };
-          }, Math.floor(timeCount / 90) * 62000);
+          }, Math.floor(timeCount / 91) * 62000);
         }
         //체크한 직업의 스킬만큼 반복
         else {
           count++;
-          console.log(count);
           var XMLHttpRequest = require("xhr2");
           var xhr2 = new XMLHttpRequest();
           xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
@@ -180,7 +177,6 @@ function App() {
 
           xhr2.onload = () => {
             let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
-
             if (xhr2.status == 200) {
               if (classGem.TotalCount !== 0) {
                 let test = {}; //오브젝트 생성
@@ -191,7 +187,6 @@ function App() {
                 test.Icon = a.Icon; //아이콘 경로 저장
                 setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                 setNowClassSkillCount(count);
-                console.log(test);
               }
             }
           };
