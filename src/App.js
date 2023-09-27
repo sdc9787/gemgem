@@ -4,6 +4,8 @@ import "./App.css";
 function App() {
   let classSkill = require("./classSkill.json"); //classSkill종합파일
   let classSkillList = Object.keys(classSkill); //class목록 추출
+
+  let classIcon = require("./classIcon.json");
   let classDivision = ["아르카나", "배틀마스터", "블레이드", "호크아이", "도화가"];
   let classDivision2 = ["전사", "마법사", "무도가", "암살자", "헌터", "스페셜리스트"];
   let newclassDivision = {}; //class 클래스별 정리
@@ -50,14 +52,14 @@ function App() {
 
   function api() {
     let count = 0;
-    let timeCount = 0;
+    let timeCount = 1;
     setGemListAll(() => []);
     checked.map((b) => {
       //체크한 직업만큼 반복
       classSkill[b].map((a, i) => {
         if (count > 99) {
-          timeCount++;
           setTimeout(() => {
+            timeCount++;
             count++;
 
             //체크한 직업의 스킬만큼 반복
@@ -124,11 +126,10 @@ function App() {
                 }
               }
             };
-          }, Math.floor(timeCount / 90) * 70000);
+          }, Math.floor(timeCount / 100) * 62000);
         }
         //체크한 직업의 스킬만큼 반복
         else {
-          timeCount++;
           count++;
           console.log(count);
           var XMLHttpRequest = require("xhr2");
@@ -258,8 +259,11 @@ function App() {
                   {newclassDivision[a].map((b, j) => {
                     return (
                       <div className="class-division-checkbox" key={count123++}>
-                        <input value={b} id={b} type="checkbox" onChange={handleCheck} />
-                        <label htmlFor={b}>{b}</label>
+                        <label>
+                          <input value={b} id={b} type="checkbox" onChange={handleCheck} />
+                          <img className="class-icon" src={classIcon[b]} />
+                          <span>{b}</span>
+                        </label>
                       </div>
                     );
                   })}

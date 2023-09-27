@@ -158,6 +158,12 @@ html {
   padding: 5px;
 }
 
+.class-division-checkbox label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .gem-list-frame {
   display: block;
   width: 40%;
@@ -209,4 +215,9 @@ html {
 }
 .gem-list span:nth-child(3) {
   width: 35%;
+}
+
+.class-icon {
+  width: 20px;
+  margin-right: 3px;
 }
