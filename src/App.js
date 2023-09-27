@@ -57,9 +57,9 @@ function App() {
     checked.map((b) => {
       //체크한 직업만큼 반복
       classSkill[b].map((a, i) => {
-        if (count > 99) {
+        timeCount++;
+        if (count > 89) {
           setTimeout(() => {
-            timeCount++;
             count++;
 
             //체크한 직업의 스킬만큼 반복
@@ -126,7 +126,7 @@ function App() {
                 }
               }
             };
-          }, Math.floor(timeCount / 100) * 62000);
+          }, Math.floor(timeCount / 90) * 62000);
         }
         //체크한 직업의 스킬만큼 반복
         else {
@@ -278,8 +278,7 @@ function App() {
                 onChange={(e) => {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
-                }}
-              >
+                }}>
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -322,8 +321,7 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}
-          >
+            }}>
             검색
           </button>
         </div>
