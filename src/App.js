@@ -108,15 +108,15 @@ function App() {
           let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
           count++;
           if (xhr2.status == 200 && classGem.TotalCount !== 0) {
-            let test = {}; //오브젝트 생성
-            test.skillValue = a.Value; //스킬값 저장
-            test.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
-            test.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
-            test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
-            test.Icon = a.Icon; //아이콘 경로 저장
-            setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
+            let apiSearchValue = {}; //오브젝트 생성
+            apiSearchValue.skillValue = a.Value; //스킬값 저장
+            apiSearchValue.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
+            apiSearchValue.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
+            apiSearchValue.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+            apiSearchValue.Icon = a.Icon; //아이콘 경로 저장
+            setGemListAll((gemListAll) => [...gemListAll, apiSearchValue]); //list에 저장
             setNowClassSkillCount(count);
-            console.log(test);
+            console.log(apiSearchValue);
           } else if (xhr2.status == 429) {
             count--;
             apiResand(a, b);
@@ -168,18 +168,18 @@ function App() {
     );
 
     xhr2.onload = () => {
-      count++;
       let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
+      count++;
       if (xhr2.status == 200 && classGem.TotalCount !== 0) {
-        let test = {}; //오브젝트 생성
-        test.skillValue = a.Value; //스킬값 저장
-        test.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
-        test.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
-        test.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
-        test.Icon = a.Icon; //아이콘 경로 저장
-        setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
+        let apiSearchValue = {}; //오브젝트 생성
+        apiSearchValue.skillValue = a.Value; //스킬값 저장
+        apiSearchValue.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
+        apiSearchValue.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
+        apiSearchValue.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+        apiSearchValue.Icon = a.Icon; //아이콘 경로 저장
+        setGemListAll((gemListAll) => [...gemListAll, apiSearchValue]); //list에 저장
         setNowClassSkillCount(count);
-        console.log(test);
+        console.log(apiSearchValue);
       } else if (xhr2.status == 429) {
         count--;
         //20초뒤 다시시도
@@ -224,7 +224,9 @@ function App() {
 
   return (
     <>
-      <div className="navbar"></div>
+      <div className="navbar">
+        <span className="navbar-title">LoaGem</span>
+      </div>
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-input-frame">
