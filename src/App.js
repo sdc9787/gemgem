@@ -52,6 +52,7 @@ function App() {
   function api() {
     let count = 0;
     let timeCount = 1;
+    let timecheck = 0;
     setGemListAll(() => []);
     checked.map((b) => {
       //체크한 직업만큼 반복
@@ -68,13 +69,6 @@ function App() {
             xhr2.setRequestHeader("accept", "application/json");
             xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
             xhr2.setRequestHeader("content-Type", "application/json");
-            xhr2.onreadystatechange = () => {
-              // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
-              //   console.log("처리중");
-              // } else if (xhr2.readyState === 4) {
-              //   console.log("처리완료");
-              // }
-            };
 
             xhr2.send(
               JSON.stringify({
@@ -120,7 +114,6 @@ function App() {
                   test.Icon = a.Icon; //아이콘 경로 저장
                   setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                   setNowClassSkillCount(count);
-                  console.log(test);
                 }
               } else if (xhr2.status == 429) {
                 count--;
@@ -130,13 +123,6 @@ function App() {
                   xhr2.setRequestHeader("accept", "application/json");
                   xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
                   xhr2.setRequestHeader("content-Type", "application/json");
-                  xhr2.onreadystatechange = () => {
-                    // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
-                    //   console.log("처리중");
-                    // } else if (xhr2.readyState === 4) {
-                    //   console.log("처리완료");
-                    // }
-                  };
 
                   xhr2.send(
                     JSON.stringify({
@@ -181,14 +167,13 @@ function App() {
                         test.Icon = a.Icon; //아이콘 경로 저장
                         setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                         setNowClassSkillCount(count);
-                        console.log(test);
                       }
                     }
                   };
                 }, 70000);
               }
             };
-          }, Math.floor(timeCount / 91) * 62000);
+          }, Math.floor(timeCount / 91 + 1) * 70000);
         }
         //체크한 직업의 스킬만큼 반복
         else {
@@ -199,13 +184,6 @@ function App() {
           xhr2.setRequestHeader("accept", "application/json");
           xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
           xhr2.setRequestHeader("content-Type", "application/json");
-          xhr2.onreadystatechange = () => {
-            // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
-            //   console.log("처리중");
-            // } else if (xhr2.readyState === 4) {
-            //   console.log("처리완료");
-            // }
-          };
 
           xhr2.send(
             JSON.stringify({
@@ -241,6 +219,7 @@ function App() {
 
           xhr2.onload = () => {
             let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
+            console.log(xhr2.getAllResponseHeaders());
             if (xhr2.status == 200) {
               if (classGem.TotalCount !== 0) {
                 let test = {}; //오브젝트 생성
@@ -251,9 +230,9 @@ function App() {
                 test.Icon = a.Icon; //아이콘 경로 저장
                 setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                 setNowClassSkillCount(count);
-                console.log(test);
               }
             } else if (xhr2.status == 429) {
+              timecheck = 1;
               count--;
               setTimeout(() => {
                 count++;
@@ -261,13 +240,6 @@ function App() {
                 xhr2.setRequestHeader("accept", "application/json");
                 xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
                 xhr2.setRequestHeader("content-Type", "application/json");
-                xhr2.onreadystatechange = () => {
-                  // if (xhr2.readyState === 1 || xhr2.readyState === 2 || xhr2.readyState === 3) {
-                  //   console.log("처리중");
-                  // } else if (xhr2.readyState === 4) {
-                  //   console.log("처리완료");
-                  // }
-                };
 
                 xhr2.send(
                   JSON.stringify({
@@ -312,11 +284,10 @@ function App() {
                       test.Icon = a.Icon; //아이콘 경로 저장
                       setGemListAll((gemListAll) => [...gemListAll, test]); //list에 저장
                       setNowClassSkillCount(count);
-                      console.log(test);
                     }
                   }
                 };
-              }, 70000);
+              }, 65000);
             }
           };
         }
@@ -324,12 +295,13 @@ function App() {
     });
   }
   useEffect(() => {
+    //리로딩
     forceUpdate();
   }, [nowClassSkillCount]);
 
   useEffect(() => {
+    //가격내림차순으로 정렬
     gemListAll.sort((a, b) => {
-      //가격내림차순으로 정렬
       if (a.hasOwnProperty("price")) {
         return b.price - a.price;
       }
@@ -338,6 +310,7 @@ function App() {
   }, [gemListAll]);
 
   useEffect(() => {
+    //localstorage저장
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey.replaceAll(" ", "")));
   }, [apiKey]);
 
