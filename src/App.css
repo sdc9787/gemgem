@@ -2,12 +2,6 @@ html {
   background-color: #303030;
   color: white;
 }
-.main-frame {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-evenly;
-}
 
 .navbar {
   display: block;
@@ -218,6 +212,28 @@ html {
 }
 
 .class-icon {
-  width: 25px;
+  width: 30px;
   margin-right: 3px;
+}
+
+@media screen and (min-width: 1500px) {
+  .main-frame {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 1501px) {
+  .main-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  .gem-list-frame {
+    margin: 50px 0px;
+    width: 930px;
+  }
 }
