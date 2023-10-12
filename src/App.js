@@ -21,7 +21,7 @@ function App() {
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
   let [apiKey, setapiKey] = useState(() => JSON.parse(window.localStorage.getItem("apiKey")) || "");
-  let [checked, setChecked] = useState([]); //class 체크 저장
+  let [checked, setChecked] = useState(() => JSON.parse(window.localStorage.getItem("checked")) || []); //class 체크 저장
   let [gemLevel, setGemLevel] = useState("5레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
@@ -209,6 +209,10 @@ function App() {
     //localstorage저장
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey.replaceAll(" ", "")));
   }, [apiKey]);
+  useEffect(() => {
+    //localstorage저장
+    window.localStorage.setItem("checked", JSON.stringify(checked));
+  }, [checked]);
 
   useEffect(() => {
     setClassSkillCount(0);
@@ -255,7 +259,7 @@ function App() {
                     return (
                       <div className="class-division-checkbox" key={j}>
                         <label>
-                          <input value={b} id={b} type="checkbox" onChange={handleCheck} />
+                          <input value={b} id={b} type="checkbox" onChange={handleCheck} checked={checked.includes(`${b}`)} />
                           <img className="class-icon" src={classIcon[b]} />
                           <span>{b}</span>
                         </label>
@@ -273,7 +277,8 @@ function App() {
                 onChange={(e) => {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
-                }}>
+                }}
+              >
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -314,7 +319,8 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}>
+            }}
+          >
             검색
           </button>
         </div>
