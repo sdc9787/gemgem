@@ -1045,10 +1045,10 @@
       "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_11.png"
     },
     {
-      "Value": 22100,
-      "Text": "오의 : 뇌진격",
+      "Value": 22340,
+      "Text": "오의 : 창룡패황권",
       "Class": "배틀마스터",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_0.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_39.png"
     },
     {
       "Value": 22020,
@@ -1087,10 +1087,10 @@
       "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_2.png"
     },
     {
-      "Value": 22090,
-      "Text": "지뢰진",
+      "Value": 22350,
+      "Text": "선풍용류각",
       "Class": "배틀마스터",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_9.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_38.png"
     },
     {
       "Value": 22280,
@@ -1107,10 +1107,10 @@
   ],
   "인파이터": [
     {
-      "Value": 23080,
-      "Text": "공명의 사슬",
+      "Value": 23290,
+      "Text": "풍신권",
       "Class": "인파이터",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/if_skill/if_skill_01_1.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/if_skill/if_skill_01_24.png"
     },
     {
       "Value": 23220,
@@ -1173,10 +1173,10 @@
       "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/if_skill/if_skill_01_10.png"
     },
     {
-      "Value": 23070,
-      "Text": "지진쇄",
+      "Value": 23300,
+      "Text": "폭렬권",
       "Class": "인파이터",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/if_skill/if_skill_01_8.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/if_skill/if_skill_01_25.png"
     },
     {
       "Value": 23240,
