@@ -206,11 +206,11 @@ function App() {
   }, [gemListAll]);
 
   useEffect(() => {
-    //localstorage저장
+    //api-key-localstorage저장
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey.replaceAll(" ", "")));
   }, [apiKey]);
   useEffect(() => {
-    //localstorage저장
+    //api-key-localstorage저장
     window.localStorage.setItem("checked", JSON.stringify(checked));
   }, [checked]);
 
