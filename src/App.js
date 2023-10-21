@@ -111,8 +111,8 @@ function App() {
             let apiSearchValue = {}; //오브젝트 생성
             apiSearchValue.skillValue = a.Value; //스킬값 저장
             apiSearchValue.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
-            apiSearchValue.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
-            apiSearchValue.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+            apiSearchValue.skillName = a.Text; //스킬이름 저장
+            apiSearchValue.className = b; //직업이름 저장
             apiSearchValue.Icon = a.Icon; //아이콘 경로 저장
             setGemListAll((gemListAll) => [...gemListAll, apiSearchValue]); //list에 저장
             setNowClassSkillCount(count);
@@ -174,8 +174,8 @@ function App() {
         let apiSearchValue = {}; //오브젝트 생성
         apiSearchValue.skillValue = a.Value; //스킬값 저장
         apiSearchValue.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
-        apiSearchValue.skillName = classGem.Items[0].Options[0].OptionName; //스킬이름 저장
-        apiSearchValue.className = classGem.Items[0].Options[0].ClassName; //직업이름 저장
+        apiSearchValue.skillName = a.Text; //스킬이름 저장
+        apiSearchValue.className = b; //직업이름 저장
         apiSearchValue.Icon = a.Icon; //아이콘 경로 저장
         setGemListAll((gemListAll) => [...gemListAll, apiSearchValue]); //list에 저장
         setNowClassSkillCount(count);
@@ -277,8 +277,7 @@ function App() {
                 onChange={(e) => {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
-                }}
-              >
+                }}>
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -319,8 +318,7 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}
-          >
+            }}>
             검색
           </button>
         </div>
