@@ -63,9 +63,9 @@ function App() {
     count = 0;
     setGemListAll(() => []);
     //체크한 직업만큼 반복
-    checked.map((b) => {
+    checked.forEach((b) => {
       //체크한 직업의 스킬만큼 반복
-      classSkill[b].map((a, i) => {
+      classSkill[b].forEach((a) => {
         var XMLHttpRequest = require("xhr2");
         var xhr2 = new XMLHttpRequest();
         xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
@@ -277,7 +277,8 @@ function App() {
                 onChange={(e) => {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
-                }}>
+                }}
+              >
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -318,7 +319,8 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}>
+            }}
+          >
             검색
           </button>
         </div>
