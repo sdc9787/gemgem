@@ -1,5 +1,35 @@
 import { useEffect, useReducer, useState } from "react";
 import "./App.css";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
+
+const customModalStyles = {
+  overlay: {
+    backgroundColor: " rgba(0, 0, 0, 0.4)",
+    width: "100%",
+    height: "100vh",
+    zIndex: "10",
+    position: "fixed",
+    top: "0",
+    left: "0",
+  },
+  content: {
+    display: "flex",
+    width: "250px",
+    height: "250px",
+    zIndex: "150",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    borderRadius: "10px",
+    border: "2px solid gray",
+    backgroundColor: "#424242",
+    justifyContent: "center",
+    overflow: "auto",
+  },
+};
 
 function App() {
   /**classSkill종합 파일*/
@@ -20,10 +50,11 @@ function App() {
   /**현재전체스킬개수(현재총api점색수) */
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
-  let [apiKey, setapiKey] = useState(() => JSON.parse(window.localStorage.getItem("apiKey")) || "");
+  let [modalIsOpen, setModalIsOpen] = useState(false);
+  let [apiKey, setapiKey] = useState(() => (typeof JSON.parse(window.localStorage.getItem("apiKey")) == "string" ? ["", "", "", "", ""] : JSON.parse(window.localStorage.getItem("apiKey"))));
   let [checked, setChecked] = useState(() => JSON.parse(window.localStorage.getItem("checked")) || []); //class 체크 저장
-  let [gemLevel, setGemLevel] = useState("5레벨"); //보석 레벨 저장
-  let [gemDamCol, setGemDamCol] = useState("멸화"); //보석 멸홍 저장
+  let [gemLevel, setGemLevel] = useState(() => JSON.parse(window.localStorage.getItem("gemLevel")) || "5레벨"); //보석 레벨 저장
+  let [gemDamCol, setGemDamCol] = useState(() => JSON.parse(window.localStorage.getItem("gemDamCol")) || "멸화"); //보석 멸홍 저장
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
   /**state리로딩 함수 */
@@ -66,18 +97,19 @@ function App() {
     checked.forEach((b) => {
       //체크한 직업의 스킬만큼 반복
       classSkill[b].forEach((a) => {
-        apiResand(a, b);
+        apiResand(a, b, 0);
         //체크한 직업의 스킬만큼 반복
       });
     });
   }
 
-  function apiResand(a, b) {
+  function apiResand(a, b, i) {
     var XMLHttpRequest = require("xhr2");
     var xhr2 = new XMLHttpRequest();
     xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
     xhr2.setRequestHeader("accept", "application/json");
-    xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
+    //xhr2.setRequestHeader("authorization", `bearer ${apiKey.replaceAll(" ", "")}`);
+    xhr2.setRequestHeader("authorization", `bearer ${apiKey[i].replaceAll(" ", "")}`);
     xhr2.setRequestHeader("content-Type", "application/json");
     xhr2.send(
       JSON.stringify({
@@ -127,9 +159,13 @@ function App() {
       } else if (xhr2.status == 429) {
         count--;
         //20초뒤 다시시도
-        setTimeout(() => {
-          apiResand(a, b);
-        }, 20000);
+        if (apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0) == i + 1) {
+          setTimeout(() => {
+            apiResand(a, b, 0);
+          }, 21000);
+        } else {
+          apiResand(a, b, i + 1);
+        }
       }
     };
   }
@@ -150,8 +186,18 @@ function App() {
   }, [gemListAll]);
 
   useEffect(() => {
+    //gemLevel-localstorage 저장
+    window.localStorage.setItem("gemLevel", JSON.stringify(gemLevel));
+  }, [gemLevel]);
+
+  useEffect(() => {
+    //gemDamCol-localstorage 저장
+    window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
+  }, [gemDamCol]);
+
+  useEffect(() => {
     //api-key-localstorage저장
-    window.localStorage.setItem("apiKey", JSON.stringify(apiKey.replaceAll(" ", "")));
+    window.localStorage.setItem("apiKey", JSON.stringify(apiKey.map((a) => a.replaceAll(" ", ""))));
   }, [apiKey]);
   useEffect(() => {
     //api-key-localstorage저장
@@ -179,15 +225,27 @@ function App() {
         <div className="gem-option">
           <div className="api-input-frame">
             <div className="api-key">
-              <span style={{ fontWeight: "600" }}>API 키</span>
-              <input
-                type="text"
-                onChange={(e) => {
-                  setapiKey(e.target.value);
-                }}
-                value={apiKey}
-                placeholder="API 키"
-              />
+              <button onClick={() => setModalIsOpen(true)}>API 키</button>
+              <Modal style={customModalStyles} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <div className="api-modal">
+                  {apiKey.map((a, i) => {
+                    return (
+                      <input
+                        key={i}
+                        type="text"
+                        onChange={(e) => {
+                          let copy = [...apiKey];
+                          copy[i] = e.target.value;
+                          setapiKey(copy);
+                        }}
+                        value={apiKey[i]}
+                        placeholder="API 키"
+                      />
+                    );
+                  })}
+                  <button onClick={() => setModalIsOpen(false)}>닫기</button>
+                </div>
+              </Modal>
             </div>
             <div>
               <span>검색수</span>
@@ -222,6 +280,7 @@ function App() {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
                 }}
+                defaultValue={gemLevel}
               >
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
@@ -239,7 +298,7 @@ function App() {
                   value="멸화"
                   id="damage"
                   type="radio"
-                  defaultChecked
+                  checked={gemDamCol == "멸화"}
                   onChange={(e) => {
                     setGemDamCol(e.target.value);
                   }}
@@ -252,6 +311,7 @@ function App() {
                   value="홍염"
                   id="cooldown"
                   type="radio"
+                  checked={gemDamCol == "홍염"}
                   onChange={(e) => {
                     setGemDamCol(e.target.value);
                   }}
