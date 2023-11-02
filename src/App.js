@@ -1,11 +1,14 @@
 import { useEffect, useReducer, useState } from "react";
-import "./App.css";
+import "./style/App.css";
 import Modal from "react-modal";
 
+//modal 오류방지
 Modal.setAppElement("#root");
 
 const customModalStyles = {
+  //모달창 css설정
   overlay: {
+    //밖
     backgroundColor: " rgba(0, 0, 0, 0.4)",
     width: "100%",
     height: "100vh",
@@ -15,6 +18,7 @@ const customModalStyles = {
     left: "0",
   },
   content: {
+    //내용
     display: "flex",
     width: "250px",
     height: "250px",
@@ -50,7 +54,7 @@ function App() {
   /**현재전체스킬개수(현재총api점색수) */
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
-  let [modalIsOpen, setModalIsOpen] = useState(false);
+  let [modalIsOpen, setModalIsOpen] = useState(false); //모달창
   let [apiKey, setapiKey] = useState(() => (typeof JSON.parse(window.localStorage.getItem("apiKey")) == "string" ? ["", "", "", "", ""] : JSON.parse(window.localStorage.getItem("apiKey"))));
   let [checked, setChecked] = useState(() => JSON.parse(window.localStorage.getItem("checked")) || []); //class 체크 저장
   let [gemLevel, setGemLevel] = useState(() => JSON.parse(window.localStorage.getItem("gemLevel")) || "5레벨"); //보석 레벨 저장
@@ -89,7 +93,8 @@ function App() {
     setChecked(updatedList);
   };
 
-  let count = 0;
+  let count = 0; //검색카운트
+  /**api실행 */
   function api() {
     count = 0;
     setGemListAll(() => []);
@@ -97,13 +102,14 @@ function App() {
     checked.forEach((b) => {
       //체크한 직업의 스킬만큼 반복
       classSkill[b].forEach((a) => {
-        apiResand(a, b, 0);
-        //체크한 직업의 스킬만큼 반복
+        //검색api
+        apiSend(a, b, 0);
       });
     });
   }
 
-  function apiResand(a, b, i) {
+  /**api전송 */
+  function apiSend(a, b, i) {
     var XMLHttpRequest = require("xhr2");
     var xhr2 = new XMLHttpRequest();
     xhr2.open("POST", "https://developer-lostark.game.onstove.com/auctions/items", true);
@@ -158,25 +164,27 @@ function App() {
         console.log(apiSearchValue);
       } else if (xhr2.status == 429) {
         count--;
-        //20초뒤 다시시도
+        //api키를 전부 사용하면 20초뒤 다시시도
         if (apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0) == i + 1) {
           setTimeout(() => {
-            apiResand(a, b, 0);
+            apiSend(a, b, 0);
           }, 21000);
-        } else {
-          apiResand(a, b, i + 1);
+        }
+        //api키가 남아있으면 재시도
+        else {
+          apiSend(a, b, i + 1);
         }
       }
     };
   }
 
+  //state리로딩
   useEffect(() => {
-    //리로딩
     forceUpdate();
   }, [nowClassSkillCount]);
 
+  //paice내림차순으로 정렬
   useEffect(() => {
-    //가격내림차순으로 정렬
     gemListAll.sort((a, b) => {
       if (a.hasOwnProperty("price")) {
         return b.price - a.price;
@@ -185,31 +193,32 @@ function App() {
     forceUpdate();
   }, [gemListAll]);
 
+  //gemLevel-localstorage 저장
   useEffect(() => {
-    //gemLevel-localstorage 저장
     window.localStorage.setItem("gemLevel", JSON.stringify(gemLevel));
   }, [gemLevel]);
 
+  //gemDamCol-localstorage 저장
   useEffect(() => {
-    //gemDamCol-localstorage 저장
     window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
   }, [gemDamCol]);
 
+  //api-key-localstorage저장
   useEffect(() => {
-    //api-key-localstorage저장
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey.map((a) => a.replaceAll(" ", ""))));
   }, [apiKey]);
+
+  //ckecked-localstorage저장
   useEffect(() => {
-    //api-key-localstorage저장
     window.localStorage.setItem("checked", JSON.stringify(checked));
   }, [checked]);
 
+  //스킬개수 계산
   useEffect(() => {
     setClassSkillCount(0);
     let classCount = 0;
-    checked.map((a) => {
-      //스킬개수 계산
-      classSkill[a].map(() => {
+    checked.forEach((a) => {
+      classSkill[a].forEach(() => {
         classCount++;
       });
     });
