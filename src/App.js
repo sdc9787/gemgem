@@ -68,8 +68,8 @@ function App() {
   let classDivisionArray = [];
   let count1 = 0;
   let count2 = 0;
-  classSkillList.map((a, i) => {
-    classDivision.map((b, j) => {
+  classSkillList.forEach((a) => {
+    classDivision.forEach((b) => {
       if (a == b) {
         newclassDivision[classDivision2[count2++]] = classDivisionArray;
         count1 = 0;
@@ -94,6 +94,8 @@ function App() {
   };
 
   let count = 0; //검색카운트
+  let apicount = 0; //api카운트
+  let apikeycount = apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0); //api키 개수
   /**api실행 */
   function api() {
     count = 0;
@@ -103,7 +105,9 @@ function App() {
       //체크한 직업의 스킬만큼 반복
       classSkill[b].forEach((a) => {
         //검색api
-        apiSend(a, b, 0);
+        apicount++;
+        if (Math.trunc(apicount / 100) == apikeycount) apicount = 0;
+        apiSend(a, b, Math.trunc(apicount / 100));
       });
     });
   }
@@ -164,11 +168,11 @@ function App() {
         console.log(apiSearchValue);
       } else if (xhr2.status == 429) {
         count--;
-        //api키를 전부 사용하면 20초뒤 다시시도
+        //api키를 전부 사용하면 22초뒤 다시시도
         if (apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0) == i + 1) {
           setTimeout(() => {
             apiSend(a, b, 0);
-          }, 21000);
+          }, 22000);
         }
         //api키가 남아있으면 재시도
         else {
