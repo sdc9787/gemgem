@@ -55,7 +55,7 @@ function App() {
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
   let [modalIsOpen, setModalIsOpen] = useState(false); //모달창
-  let [apiKey, setapiKey] = useState(() => (typeof JSON.parse(window.localStorage.getItem("apiKey")) == "string" ? ["", "", "", "", ""] : JSON.parse(window.localStorage.getItem("apiKey"))));
+  let [apiKey, setapiKey] = useState(() => (JSON.parse(window.localStorage.getItem("apiKey")) ? JSON.parse(window.localStorage.getItem("apiKey")) : ["", "", "", "", ""]));
   let [checked, setChecked] = useState(() => JSON.parse(window.localStorage.getItem("checked")) || []); //class 체크 저장
   let [gemLevel, setGemLevel] = useState(() => JSON.parse(window.localStorage.getItem("gemLevel")) || "5레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState(() => JSON.parse(window.localStorage.getItem("gemDamCol")) || "멸화"); //보석 멸홍 저장
@@ -293,8 +293,7 @@ function App() {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
                 }}
-                defaultValue={gemLevel}
-              >
+                defaultValue={gemLevel}>
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -336,8 +335,7 @@ function App() {
           <button
             onClick={() => {
               api();
-            }}
-          >
+            }}>
             검색
           </button>
         </div>
