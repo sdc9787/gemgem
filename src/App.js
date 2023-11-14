@@ -243,7 +243,7 @@ function App() {
         <div className="gem-option">
           <div className="api-input-frame">
             <div className="api-key">
-              <span style={{ display: none }}>{ignored}</span>
+              <span style={{ display: "none" }}>{ignored}</span>
               <button onClick={() => setModalIsOpen(true)}>API 키</button>
               <Modal style={customModalStyles} isOpen={modalIsOpen} closeTimeoutMS={250} onRequestClose={() => setModalIsOpen(false)}>
                 <div className="api-modal">
