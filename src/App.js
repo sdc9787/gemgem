@@ -62,7 +62,7 @@ function App() {
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
   /**state리로딩 함수 */
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  let [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   /**클래스 분류*/
   let classDivisionArray = [];
@@ -70,7 +70,7 @@ function App() {
   let count2 = 0;
   classSkillList.forEach((a) => {
     classDivision.forEach((b) => {
-      if (a == b) {
+      if (a === b) {
         newclassDivision[classDivision2[count2++]] = classDivisionArray;
         count1 = 0;
         classDivisionArray = [];
@@ -95,7 +95,7 @@ function App() {
 
   let count = 0; //검색카운트
   let apicount = 0; //api카운트
-  let apikeycount = apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0); //api키 개수
+  let apikeycount = apiKey.reduce((a, b) => (b !== "" ? a + 1 : a), 0); //api키 개수
   /**api실행 */
   function api() {
     count = 0;
@@ -106,7 +106,7 @@ function App() {
       classSkill[b].forEach((a) => {
         //검색api
         apicount++;
-        if (Math.trunc(apicount / 100) == apikeycount) apicount = 0;
+        if (Math.trunc(apicount / 100) === apikeycount) apicount = 0;
         apiSend(a, b, Math.trunc(apicount / 100));
       });
     });
@@ -156,7 +156,7 @@ function App() {
     xhr2.onload = () => {
       let classGem = JSON.parse(xhr2.response); //직업스킬 불러옴
       count++;
-      if (xhr2.status == 200 && classGem.TotalCount !== 0) {
+      if (xhr2.status === 200 && classGem.TotalCount !== 0) {
         let apiSearchValue = {}; //오브젝트 생성
         apiSearchValue.skillValue = a.Value; //스킬값 저장
         apiSearchValue.price = classGem.Items[0].AuctionInfo.BuyPrice; //즉시구매가 저장
@@ -166,10 +166,10 @@ function App() {
         setGemListAll((gemListAll) => [...gemListAll, apiSearchValue]); //list에 저장
         setNowClassSkillCount(count);
         console.log(apiSearchValue);
-      } else if (xhr2.status == 429) {
+      } else if (xhr2.status === 429) {
         count--;
         //api키를 전부 사용하면 22초뒤 다시시도
-        if (apiKey.reduce((a, b) => (b != "" ? a + 1 : a), 0) == i + 1) {
+        if (apiKey.reduce((a, b) => (b !== "" ? a + 1 : a), 0) === i + 1) {
           setTimeout(() => {
             apiSend(a, b, 0);
           }, 22000);
@@ -188,14 +188,14 @@ function App() {
   }, [nowClassSkillCount]);
 
   //paice내림차순으로 정렬
-  useEffect(() => {
-    gemListAll.sort((a, b) => {
-      if (a.hasOwnProperty("price")) {
-        return b.price - a.price;
-      }
-    });
-    forceUpdate();
-  }, [gemListAll]);
+  // useEffect(() => {
+  //   gemListAll.sort((a, b) => {
+  //     if (a.hasOwnProperty("price")) {
+  //       return b.price - a.price;
+  //     }
+  //   });
+  //   forceUpdate();
+  // }, [gemListAll]);
 
   //gemLevel-localstorage 저장
   useEffect(() => {
@@ -218,16 +218,16 @@ function App() {
   }, [checked]);
 
   //스킬개수 계산
-  useEffect(() => {
-    setClassSkillCount(0);
-    let classCount = 0;
-    checked.forEach((a) => {
-      classSkill[a].forEach(() => {
-        classCount++;
-      });
-    });
-    setClassSkillCount(classCount);
-  }, [checked]);
+  // useEffect(() => {
+  //   setClassSkillCount(0);
+  //   let classCount = 0;
+  //   checked.forEach((a) => {
+  //     classSkill[a].forEach(() => {
+  //       classCount++;
+  //     });
+  //   });
+  //   setClassSkillCount(classCount);
+  // }, [checked]);
 
   return (
     <>
@@ -238,6 +238,7 @@ function App() {
         <div className="gem-option">
           <div className="api-input-frame">
             <div className="api-key">
+              <span>{ignored}</span>
               <button onClick={() => setModalIsOpen(true)}>API 키</button>
               <Modal style={customModalStyles} isOpen={modalIsOpen} closeTimeoutMS={250} onRequestClose={() => setModalIsOpen(false)}>
                 <div className="api-modal">
@@ -275,7 +276,7 @@ function App() {
                       <div className="class-division-checkbox" key={j}>
                         <label>
                           <input value={b} id={b} type="checkbox" onChange={handleCheck} checked={checked.includes(`${b}`)} />
-                          <img className="class-icon" src={classIcon[b]} />
+                          <img alt={b} className="class-icon" src={classIcon[b]} />
                           <span>{b}</span>
                         </label>
                       </div>
@@ -311,7 +312,7 @@ function App() {
                   value="멸화"
                   id="damage"
                   type="radio"
-                  checked={gemDamCol == "멸화"}
+                  checked={gemDamCol === "멸화"}
                   onChange={(e) => {
                     setGemDamCol(e.target.value);
                   }}
@@ -324,7 +325,7 @@ function App() {
                   value="홍염"
                   id="cooldown"
                   type="radio"
-                  checked={gemDamCol == "홍염"}
+                  checked={gemDamCol === "홍염"}
                   onChange={(e) => {
                     setGemDamCol(e.target.value);
                   }}
