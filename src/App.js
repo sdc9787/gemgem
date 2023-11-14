@@ -217,7 +217,7 @@ function App() {
     window.localStorage.setItem("checked", JSON.stringify(checked));
   }, [checked]);
 
-  스킬개수 계산
+  //스킬개수 계산
   useEffect(() => {
     setClassSkillCount(0);
     let classCount = 0;
