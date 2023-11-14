@@ -50,7 +50,7 @@ function App() {
   let newclassDivision = {};
 
   /**전체스킬개수(총api검색수) */
-  let [classSkillCount] = useState(0);
+  let [classSkillCount, setClassSkillCount] = useState(0);
   /**현재전체스킬개수(현재총api점색수) */
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
@@ -188,14 +188,14 @@ function App() {
   }, [nowClassSkillCount]);
 
   //paice내림차순으로 정렬
-  // useEffect(() => {
-  //   gemListAll.sort((a, b) => {
-  //     if (a.hasOwnProperty("price")) {
-  //       return b.price - a.price;
-  //     }
-  //   });
-  //   forceUpdate();
-  // }, [gemListAll]);
+  useEffect(() => {
+    gemListAll.sort((a, b) => {
+      if (a.hasOwnProperty("price")) {
+        return b.price - a.price;
+      }
+    });
+    forceUpdate();
+  }, [gemListAll]);
 
   //gemLevel-localstorage 저장
   useEffect(() => {
@@ -217,17 +217,17 @@ function App() {
     window.localStorage.setItem("checked", JSON.stringify(checked));
   }, [checked]);
 
-  //스킬개수 계산
-  // useEffect(() => {
-  //   setClassSkillCount(0);
-  //   let classCount = 0;
-  //   checked.forEach((a) => {
-  //     classSkill[a].forEach(() => {
-  //       classCount++;
-  //     });
-  //   });
-  //   setClassSkillCount(classCount);
-  // }, [checked]);
+  스킬개수 계산
+  useEffect(() => {
+    setClassSkillCount(0);
+    let classCount = 0;
+    checked.forEach((a) => {
+      classSkill[a].forEach(() => {
+        classCount++;
+      });
+    });
+    setClassSkillCount(classCount);
+  }, [checked]);
 
   return (
     <>
