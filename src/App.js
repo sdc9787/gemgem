@@ -217,13 +217,22 @@ function App() {
   useEffect(() => {
     setClassSkillCount(0);
     let classCount = 0;
+
+    // 만약 classSkill이라는 변수를 사용하지 않는다면, 해당 코드를 제거
+    // classSkill[a].forEach(() => {
+    //   classCount++;
+    // });
+
     checked.forEach((a) => {
-      classSkill[a].forEach(() => {
-        classCount++;
-      });
+      // classSkill[a].forEach(() => {
+      //   classCount++;
+      // });
+      // 위의 코드를 아래와 같이 수정
+      classCount += classSkill[a].length;
     });
+
     setClassSkillCount(classCount);
-  }, [checked]);
+  }, [checked, classSkill]); // 의존성 배열에 classSkill 추가
 
   return (
     <>
