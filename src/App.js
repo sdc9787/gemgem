@@ -189,11 +189,7 @@ function App() {
 
   //paice내림차순으로 정렬
   useEffect(() => {
-    gemListAll.sort((a, b) => {
-      if (a.hasOwnProperty("price")) {
-        return b.price - a.price;
-      }
-    });
+    gemListAll.sort((a, b) => b.price - a.price);
     forceUpdate();
   }, [gemListAll]);
 
