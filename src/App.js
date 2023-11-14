@@ -50,7 +50,7 @@ function App() {
   let newclassDivision = {};
 
   /**전체스킬개수(총api검색수) */
-  let [classSkillCount, setClassSkillCount] = useState(0);
+  let [classSkillCount] = useState(0);
   /**현재전체스킬개수(현재총api점색수) */
   let [nowClassSkillCount, setNowClassSkillCount] = useState(0);
 
