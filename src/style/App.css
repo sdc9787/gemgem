@@ -120,10 +120,6 @@ html {
   margin-right: 10px;
 }
 
-.gem-list-frame {
-  margin-right: 100px;
-}
-
 .gem-damage-cooldown {
   display: flex;
   justify-content: center;
@@ -169,8 +165,8 @@ html {
 }
 
 .gem-list-frame {
-  display: block;
   width: 40%;
+  max-width: 890px;
   height: 78.8vh;
   border: 2px solid gray;
   border-radius: 10px;

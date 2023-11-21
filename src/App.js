@@ -236,9 +236,9 @@ function App() {
 
   return (
     <>
-      <div className="navbar">
+      <header className="navbar">
         <h1 className="navbar-title">LoaGem</h1>
-      </div>
+      </header>
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-input-frame">
