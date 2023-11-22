@@ -268,10 +268,7 @@ html {
   }
 }
 
-@media screen and (max-width: 400px) {
-  .gem-list span:nth-child(3) {
-    width: 20%;
-  }
+@media screen and (max-width: 372px) {
   .gem-choice {
     margin-bottom: 10px;
   }
