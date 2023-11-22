@@ -32,7 +32,6 @@ html {
 }
 
 .gem-option {
-  width: 72%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -165,7 +164,7 @@ html {
 }
 
 .gem-list-frame {
-  width: 40%;
+  flex-grow: 1;
   height: 78.8vh;
   border: 2px solid gray;
   border-radius: 10px;
@@ -221,6 +220,11 @@ html {
 }
 
 @media screen and (min-width: 1500px) {
+  .gem-option {
+    flex-basis: 950px;
+    flex-grow: 0;
+    flex-shrink: 1;
+  }
   .main-frame {
     display: flex;
     flex-direction: row;
@@ -230,6 +234,9 @@ html {
 }
 
 @media screen and (max-width: 1501px) {
+  .class-choice {
+    justify-content: space-around;
+  }
   .gem-option {
     width: 90%;
   }
