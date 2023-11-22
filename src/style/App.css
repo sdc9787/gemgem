@@ -240,6 +240,18 @@ html {
     align-items: center;
     justify-content: space-evenly;
   }
+  .class-choice {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .gem-choice-damage-cooldown {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .api-input-frame {
+    margin-left: 0;
+    margin-right: 0;
+  }
   .gem-list-frame {
     margin: 50px 0px;
     width: 90%;
