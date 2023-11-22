@@ -32,13 +32,10 @@ html {
 }
 
 .gem-option {
+  width: 72%;
   display: flex;
   flex-direction: column;
   text-align: center;
-}
-
-.gem-option {
-  display: flex;
   justify-content: center;
 }
 
@@ -52,6 +49,7 @@ html {
   background-color: #424242;
   text-align: left;
   padding: 10px;
+  flex-wrap: wrap;
 }
 
 .class-choice span {
@@ -62,12 +60,14 @@ html {
 }
 
 .class-division {
+  width: 130px;
   margin: 10px;
 }
 
 .gem-choice-damage-cooldown {
   margin: 10px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   white-space: nowrap;
   border: 2px solid gray;
@@ -166,7 +166,6 @@ html {
 
 .gem-list-frame {
   width: 40%;
-  max-width: 890px;
   height: 78.8vh;
   border: 2px solid gray;
   border-radius: 10px;
@@ -231,6 +230,10 @@ html {
 }
 
 @media screen and (max-width: 1501px) {
+  .gem-option {
+    width: 90%;
+  }
+
   .main-frame {
     display: flex;
     flex-direction: column;
@@ -239,7 +242,26 @@ html {
   }
   .gem-list-frame {
     margin: 50px 0px;
-    width: 930px;
+    width: 90%;
+  }
+  .api-input-frame {
+    margin-top: 10px;
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .gem-list span:nth-child(3) {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .gem-list span:nth-child(3) {
+    width: 20%;
+  }
+  .gem-choice {
+    margin-bottom: 10px;
   }
 }
 
