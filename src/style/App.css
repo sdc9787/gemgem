@@ -229,7 +229,14 @@ html {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-evenly;
+    justify-content: center;
+  }
+  .gem-list-frame {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 930px;
+    flex-grow: 0;
+    flex-shrink: 1;
   }
 }
 
