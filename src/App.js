@@ -239,6 +239,7 @@ function App() {
       <header className="navbar">
         <h1 className="navbar-title">LoaGem</h1>
       </header>
+      <span className="notification">현재 API검색 문제로 인해 검색이 불가능합니다</span>
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-input-frame">
@@ -299,8 +300,7 @@ function App() {
                   setGemLevel(e.target.value);
                   console.log(e.target.value);
                 }}
-                defaultValue={gemLevel}
-              >
+                defaultValue={gemLevel}>
                 <option value="5레벨">5레벨</option>
                 <option value="6레벨">6레벨</option>
                 <option value="7레벨">7레벨</option>
@@ -340,10 +340,10 @@ function App() {
             </div>
           </div>
           <button
+            disabled
             onClick={() => {
               api();
-            }}
-          >
+            }}>
             검색
           </button>
         </div>

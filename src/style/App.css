@@ -337,3 +337,11 @@ html {
   opacity: 0;
 }
 /* 모달창 */
+
+.notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  font-size: 20px;
+}
