@@ -1551,6 +1551,128 @@
       "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/bm_skill/bm_skill_01_12.png"
     }
   ],
+  "브레이커": [
+    {
+      "Value": 47100,
+      "Text": "권왕의 진격",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_4.png"
+    },
+    {
+      "Value": 47110,
+      "Text": "연쇄 돌풍",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_5.png"
+    },
+    {
+      "Value": 47120,
+      "Text": "비뢰격",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_6.png"
+    },
+    {
+      "Value": 47130,
+      "Text": "유성 낙하",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_7.png"
+    },
+    {
+      "Value": 47140,
+      "Text": "즉결타",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_8.png"
+    },
+    {
+      "Value": 47150,
+      "Text": "연속전격",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_9.png"
+    },
+    {
+      "Value": 47160,
+      "Text": "백렬권",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_10.png"
+    },
+    {
+      "Value": 47170,
+      "Text": "금강난격",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_11.png"
+    },
+    {
+      "Value": 47180,
+      "Text": "징벌의 파도",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_12.png"
+    },
+    {
+      "Value": 47190,
+      "Text": "척결",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_13.png"
+    },
+    {
+      "Value": 47200,
+      "Text": "휩쓸기",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_14.png"
+    },
+    {
+      "Value": 47210,
+      "Text": "비상격",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_15.png"
+    },
+    {
+      "Value": 47220,
+      "Text": "대지파쇄권",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_16.png"
+    },
+    {
+      "Value": 47230,
+      "Text": "진 파공권",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_17.png"
+    },
+    {
+      "Value": 47240,
+      "Text": "청월난무",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_18.png"
+    },
+    {
+      "Value": 47250,
+      "Text": "연의붕권",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_19.png"
+    },
+    {
+      "Value": 47260,
+      "Text": "천기심권",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_20.png"
+    },
+    {
+      "Value": 47270,
+      "Text": "파천섬광",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_21.png"
+    },
+    {
+      "Value": 47270,
+      "Text": "파천섬광",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_21.png"
+    },
+    {
+      "Value": 36000,
+      "Text": "수라결",
+      "Class": "브레이커",
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_27.png"
+    }
+  ],
   "블레이드": [
     {
       "Value": 25150,
