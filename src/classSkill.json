@@ -1661,16 +1661,16 @@
       "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_21.png"
     },
     {
-      "Value": 47270,
-      "Text": "파천섬광",
+      "Value": 47020,
+      "Text": "수라결 기본 공격",
       "Class": "브레이커",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_21.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_27.png"
     },
     {
       "Value": 36000,
       "Text": "수라결",
       "Class": "브레이커",
-      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_27.png"
+      "Icon": "https://cdn-lostark.game.onstove.com/efui_iconatlas/ifm_skill/ifm_skill_01_26.png"
     }
   ],
   "블레이드": [
