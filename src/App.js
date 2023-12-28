@@ -144,7 +144,7 @@ function App() {
         ],
         Sort: "BUY_PRICE",
         CategoryCode: 210000,
-        CharacterClass: b,
+        CharacterClass: null,
         ItemTier: 3,
         ItemGrade: null,
         ItemName: `${gemLevel} ${gemDamCol}`,
@@ -239,7 +239,7 @@ function App() {
       <header className="navbar">
         <h1 className="navbar-title">LoaGem</h1>
       </header>
-      <span className="notification">현재 API검색 문제로 인해 검색이 불가능합니다</span>
+
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-input-frame">
@@ -340,7 +340,6 @@ function App() {
             </div>
           </div>
           <button
-            disabled
             onClick={() => {
               api();
             }}>
