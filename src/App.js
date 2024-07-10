@@ -218,11 +218,6 @@ function App() {
     window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
   }, [itemTier, gemDamCol]);
 
-  //gemDamCol-localstorage 저장
-  useEffect(() => {
-    window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
-  }, [gemDamCol]);
-
   //api-key-localstorage저장
   useEffect(() => {
     window.localStorage.setItem("apiKey", JSON.stringify(apiKey.map((a) => a.replaceAll(" ", ""))));
