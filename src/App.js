@@ -215,7 +215,7 @@ function App() {
       }
     }
     window.localStorage.setItem("itemTier", JSON.stringify(itemTier));
-  }, [itemTier]);
+  }, [itemTier, gemDamCol]);
 
   //gemDamCol-localstorage 저장
   useEffect(() => {
