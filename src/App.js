@@ -148,7 +148,7 @@ function App() {
         CharacterClass: null,
         ItemTier: itemTier,
         ItemGrade: null,
-        ItemName: `${gemLevel} ${itemTier === 3 ? (gemDamCol === "뎀증" ? "멸화" : "홍염") : gemDamCol === "뎀증" ? "겁화" : "작열"}`,
+        ItemName: `${gemLevel} ${itemTier === 3 ? (gemDamCol === "멸화" ? "멸화" : "홍염") : gemDamCol === "멸화" ? "겁화" : "작열"}`,
         PageNo: 0,
         SortCondition: "ASC",
       })
@@ -332,10 +332,10 @@ function App() {
                 <div className="gem-damage">
                   <input
                     name="gem"
-                    value="뎀증"
+                    value="멸화"
                     id="damage"
                     type="radio"
-                    checked={gemDamCol === "뎀증"}
+                    checked={gemDamCol === "멸화"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -345,10 +345,10 @@ function App() {
                 <div className="gem-cooldown">
                   <input
                     name="gem"
-                    value="쿨감"
+                    value="홍염"
                     id="cooldown"
                     type="radio"
-                    checked={gemDamCol === "쿨감"}
+                    checked={gemDamCol === "홍염"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -362,10 +362,10 @@ function App() {
                 <div className="gem-damage">
                   <input
                     name="gem"
-                    value="뎀증"
+                    value="멸화"
                     id="damage"
                     type="radio"
-                    checked={gemDamCol === "뎀증"}
+                    checked={gemDamCol === "멸화"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -375,10 +375,10 @@ function App() {
                 <div className="gem-cooldown">
                   <input
                     name="gem"
-                    value="쿨감"
+                    value="홍염"
                     id="cooldown"
                     type="radio"
-                    checked={gemDamCol === "쿨감"}
+                    checked={gemDamCol === "홍염"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
