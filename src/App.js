@@ -59,6 +59,7 @@ function App() {
   let [checked, setChecked] = useState(() => JSON.parse(window.localStorage.getItem("checked")) || []); //class 체크 저장
   let [gemLevel, setGemLevel] = useState(() => JSON.parse(window.localStorage.getItem("gemLevel")) || "5레벨"); //보석 레벨 저장
   let [gemDamCol, setGemDamCol] = useState(() => JSON.parse(window.localStorage.getItem("gemDamCol")) || "멸화"); //보석 멸홍 저장
+  let [itemTier, setItemTier] = useState(() => JSON.parse(window.localStorage.getItem("itemTier")) || "3"); //아이템 티어
   let [gemListAll, setGemListAll] = useState([]); //검색후 결과 저장
 
   /**state리로딩 함수 */
@@ -145,7 +146,7 @@ function App() {
         Sort: "BUY_PRICE",
         CategoryCode: 210000,
         CharacterClass: null,
-        ItemTier: 3,
+        ItemTier: itemTier,
         ItemGrade: null,
         ItemName: `${gemLevel} ${gemDamCol}`,
         PageNo: 0,
@@ -197,6 +198,25 @@ function App() {
   useEffect(() => {
     window.localStorage.setItem("gemLevel", JSON.stringify(gemLevel));
   }, [gemLevel]);
+
+  //itemTier-localstorage 저장
+  useEffect(() => {
+    if (itemTier === "3") {
+      if (gemDamCol === "작열") {
+        setGemDamCol("홍염");
+      } else {
+        setGemDamCol("멸화");
+      }
+    } else {
+      if (gemDamCol === "홍염") {
+        setGemDamCol("작열");
+      } else {
+        setGemDamCol("겁화");
+      }
+    }
+    window.localStorage.setItem("itemTier", JSON.stringify(itemTier));
+    window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
+  }, [itemTier]);
 
   //gemDamCol-localstorage 저장
   useEffect(() => {
@@ -294,6 +314,18 @@ function App() {
           </div>
           <div className="gem-choice-damage-cooldown">
             <div className="gem-choice">
+              <span>보석 티어</span>
+              <select
+                onChange={(e) => {
+                  setItemTier(e.target.value);
+                  console.log(e.target.value);
+                }}
+                defaultValue={itemTier}>
+                <option value="3">3티어</option>
+                <option value="4">4티어</option>
+              </select>
+            </div>
+            <div className="gem-choice">
               <span>보석 레벨</span>
               <select
                 onChange={(e) => {
@@ -309,35 +341,67 @@ function App() {
                 <option value="10레벨">10레벨</option>
               </select>
             </div>
-            <div className="gem-damage-cooldown">
-              <span>보석 종류</span>
-              <div className="gem-damage">
-                <input
-                  name="gem"
-                  value="멸화"
-                  id="damage"
-                  type="radio"
-                  checked={gemDamCol === "멸화"}
-                  onChange={(e) => {
-                    setGemDamCol(e.target.value);
-                  }}
-                />
-                <label htmlFor="damage">멸화</label>
+            {itemTier === "3" ? (
+              <div className="gem-damage-cooldown">
+                <span>보석 종류</span>
+                <div className="gem-damage">
+                  <input
+                    name="gem"
+                    value="멸화"
+                    id="damage"
+                    type="radio"
+                    checked={gemDamCol === "멸화"}
+                    onChange={(e) => {
+                      setGemDamCol(e.target.value);
+                    }}
+                  />
+                  <label htmlFor="damage">멸화</label>
+                </div>
+                <div className="gem-cooldown">
+                  <input
+                    name="gem"
+                    value="홍염"
+                    id="cooldown"
+                    type="radio"
+                    checked={gemDamCol === "홍염"}
+                    onChange={(e) => {
+                      setGemDamCol(e.target.value);
+                    }}
+                  />
+                  <label htmlFor="cooldown">홍염</label>
+                </div>
               </div>
-              <div className="gem-cooldown">
-                <input
-                  name="gem"
-                  value="홍염"
-                  id="cooldown"
-                  type="radio"
-                  checked={gemDamCol === "홍염"}
-                  onChange={(e) => {
-                    setGemDamCol(e.target.value);
-                  }}
-                />
-                <label htmlFor="cooldown">홍염</label>
+            ) : (
+              <div className="gem-damage-cooldown">
+                <span>보석 종류</span>
+                <div className="gem-damage">
+                  <input
+                    name="gem"
+                    value="겁화"
+                    id="damage"
+                    type="radio"
+                    checked={gemDamCol === "겁화"}
+                    onChange={(e) => {
+                      setGemDamCol(e.target.value);
+                    }}
+                  />
+                  <label htmlFor="damage">겁화</label>
+                </div>
+                <div className="gem-cooldown">
+                  <input
+                    name="gem"
+                    value="작열"
+                    id="cooldown"
+                    type="radio"
+                    checked={gemDamCol === "작열"}
+                    onChange={(e) => {
+                      setGemDamCol(e.target.value);
+                    }}
+                  />
+                  <label htmlFor="cooldown">작열</label>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <button
             onClick={() => {
