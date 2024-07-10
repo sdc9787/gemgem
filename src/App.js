@@ -215,6 +215,7 @@ function App() {
       }
     }
     window.localStorage.setItem("itemTier", JSON.stringify(itemTier));
+    window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
   }, [itemTier, gemDamCol]);
 
   //gemDamCol-localstorage 저장
