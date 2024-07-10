@@ -148,7 +148,7 @@ function App() {
         CharacterClass: null,
         ItemTier: itemTier,
         ItemGrade: null,
-        ItemName: `${gemLevel} ${gemDamCol}`,
+        ItemName: `${gemLevel} ${itemTier === 3 ? (gemDamCol === "뎀증" ? "멸화" : "홍염") : gemDamCol === "뎀증" ? "겁화" : "작열"}`,
         PageNo: 0,
         SortCondition: "ASC",
       })
@@ -201,22 +201,12 @@ function App() {
 
   //itemTier-localstorage 저장
   useEffect(() => {
-    if (itemTier === "3") {
-      if (gemDamCol === "작열") {
-        setGemDamCol("홍염");
-      } else {
-        setGemDamCol("멸화");
-      }
-    } else {
-      if (gemDamCol === "홍염") {
-        setGemDamCol("작열");
-      } else {
-        setGemDamCol("겁화");
-      }
-    }
     window.localStorage.setItem("itemTier", JSON.stringify(itemTier));
+  }, [itemTier]);
+
+  useEffect(() => {
     window.localStorage.setItem("gemDamCol", JSON.stringify(gemDamCol));
-  }, [itemTier, gemDamCol]);
+  }, [gemDamCol]);
 
   //api-key-localstorage저장
   useEffect(() => {
@@ -342,10 +332,10 @@ function App() {
                 <div className="gem-damage">
                   <input
                     name="gem"
-                    value="멸화"
+                    value="뎀증"
                     id="damage"
                     type="radio"
-                    checked={gemDamCol === "멸화"}
+                    checked={gemDamCol === "뎀증"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -355,10 +345,10 @@ function App() {
                 <div className="gem-cooldown">
                   <input
                     name="gem"
-                    value="홍염"
+                    value="쿨감"
                     id="cooldown"
                     type="radio"
-                    checked={gemDamCol === "홍염"}
+                    checked={gemDamCol === "쿨감"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -372,10 +362,10 @@ function App() {
                 <div className="gem-damage">
                   <input
                     name="gem"
-                    value="겁화"
+                    value="뎀증"
                     id="damage"
                     type="radio"
-                    checked={gemDamCol === "겁화"}
+                    checked={gemDamCol === "뎀증"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
@@ -385,10 +375,10 @@ function App() {
                 <div className="gem-cooldown">
                   <input
                     name="gem"
-                    value="작열"
+                    value="쿨감"
                     id="cooldown"
                     type="radio"
-                    checked={gemDamCol === "작열"}
+                    checked={gemDamCol === "쿨감"}
                     onChange={(e) => {
                       setGemDamCol(e.target.value);
                     }}
