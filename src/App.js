@@ -148,7 +148,7 @@ function App() {
         CharacterClass: null,
         ItemTier: itemTier,
         ItemGrade: null,
-        ItemName: `${gemLevel} ${itemTier === 3 ? (gemDamCol === "멸화" ? "멸화" : "홍염") : gemDamCol === "멸화" ? "겁화" : "작열"}`,
+        ItemName: `${gemLevel} ${itemTier == 3 ? (gemDamCol === "멸화" ? "멸화" : "홍염") : gemDamCol === "멸화" ? "겁화" : "작열"}`,
         PageNo: 0,
         SortCondition: "ASC",
       })
@@ -244,7 +244,6 @@ function App() {
       <header className="navbar">
         <h1 className="navbar-title">LoaGem</h1>
       </header>
-      <span className="notification">현재 API검색 문제로 인해 3티어 보석 검색이 불가능합니다</span>
       <div className="main-frame">
         <div className="gem-option">
           <div className="api-input-frame">
