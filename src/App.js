@@ -148,7 +148,7 @@ function App() {
         CharacterClass: null,
         ItemTier: itemTier,
         ItemGrade: null,
-        ItemName: `${gemLevel} ${itemTier == 3 ? (gemDamCol === "멸화" ? "멸화" : "홍염") : gemDamCol === "멸화" ? "겁화" : "작열"}`,
+        ItemName: `${gemLevel} ${itemTier === "3" ? (gemDamCol === "멸화" ? "멸화" : "홍염") : gemDamCol === "멸화" ? "겁화" : "작열"}`,
         PageNo: 0,
         SortCondition: "ASC",
       })
